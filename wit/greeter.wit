@@ -1,0 +1,10 @@
+/// the greeter interface
+interface greeter {
+    /// greet whoever's name is provided
+    greet: func(name: string) -> string;
+}
+
+/// the greeter world
+world greeter-world {
+    export greeter;
+}

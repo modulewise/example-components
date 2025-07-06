@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-COMPONENTS=("calculator" "greeter")
+COMPONENTS=("calculator" "hello")
 
 for COMPONENT in "${COMPONENTS[@]}"; do
   VERSION=0.1.0
@@ -14,5 +14,5 @@ for COMPONENT in "${COMPONENTS[@]}"; do
     --annotation "org.opencontainers.image.source=https://github.com/modulewise/example-components" \
     --annotation "org.opencontainers.image.licenses=Apache-2.0" \
     "ghcr.io/modulewise/${COMPONENT}:${VERSION}" \
-    "target/wasm32-unknown-unknown/release/${COMPONENT}.wasm"
+    "lib/${COMPONENT}.wasm"
 done

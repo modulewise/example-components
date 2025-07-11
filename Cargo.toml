@@ -1,6 +1,7 @@
 [workspace]
 members = [
     "calculator",
+    "counter",
     "greeter",
 ]
 resolver = "3"

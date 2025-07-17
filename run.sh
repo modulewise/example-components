@@ -5,7 +5,6 @@ set -x
 
 wasmtime --invoke 'greet("World")' lib/hello.wasm
 wasmtime --invoke 'greet("World")' lib/aloha.wasm
-wasmtime --invoke 'greet("World")' lib/goodafternoon.wasm
 
 wasmtime --invoke 'add(3, 4)' lib/calculator.wasm
 wasmtime --invoke 'subtract(10, 5)' lib/calculator.wasm

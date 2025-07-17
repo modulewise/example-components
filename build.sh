@@ -3,6 +3,7 @@
 set -euo pipefail
 
 cargo component build -p calculator --target wasm32-unknown-unknown --release
+cargo component build -p counter --target wasm32-unknown-unknown --release
 cargo component build -p greeter --target wasm32-unknown-unknown --release
 
 cp target/wasm32-unknown-unknown/release/*.wasm lib/
@@ -14,3 +15,7 @@ wac plug ./lib/greeter.wasm --plug ./lib/empty-config.wasm -o ./lib/hello.wasm
 # provide greeting value through wasi:config/store-exporting component
 static-config -p greeting="Aloha" -o ./lib/aloha-config.wasm
 wac plug ./lib/greeter.wasm --plug ./lib/aloha-config.wasm -o ./lib/aloha.wasm
+
+wkg oci pull -o ./lib/valkey-client.wasm ghcr.io/componentized/valkey/valkey-client:v0.1.1
+wac plug ./lib/counter.wasm --plug ./lib/valkey-client.wasm -o ./lib/valkey-counter.wasm
+wac plug ./lib/valkey-counter.wasm --plug ./lib/empty-config.wasm -o ./lib/default-counter.wasm

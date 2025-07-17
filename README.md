@@ -6,7 +6,7 @@ Example Wasm Components used in Modulewise Demos
 
 Requires a rust toolchain with the `wasm32-unknown-unknown` target as well as the following:
 - [`cargo-component`](https://github.com/bytecodealliance/cargo-component)
-- [`wasi-virt`](https://github.com/bytecodealliance/WASI-Virt)
+- [`wkg`](https://github.com/bytecodealliance/wasm-pkg-tools)
 - [`wac`](https://github.com/bytecodealliance/wac)
 - [`static-config`](https://github.com/componentized/static-config)
 

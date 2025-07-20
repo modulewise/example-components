@@ -6,6 +6,6 @@ interface greeter {
 
 /// the greeter world
 world greeter-world {
-    export greeter;
     include wasi:config/imports@0.2.0-draft;
+    export greeter;
 }

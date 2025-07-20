@@ -1,9 +1,12 @@
+/// the counter interface
 interface counter {
-    increment: func(key: string) -> result<s64, string>;
+    /// count things
+    count: func(thing: string) -> string;
 }
 
+/// the counter world
 world counter-world {
-    import wasi:config/store@0.2.0-draft;
-    import wasi:keyvalue/atomics@0.2.0-draft2;
+    include wasi:config/imports@0.2.0-draft;
+    import incrementor;
     export counter;
 }

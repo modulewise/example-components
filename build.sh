@@ -4,8 +4,11 @@ set -euo pipefail
 
 cargo component build -p calculator --target wasm32-unknown-unknown --release
 cargo component build -p counter --target wasm32-unknown-unknown --release
+cargo component build -p flights --target wasm32-unknown-unknown --release
 cargo component build -p greeter --target wasm32-unknown-unknown --release
+cargo component build -p hotels --target wasm32-unknown-unknown --release
 cargo component build -p incrementor --target wasm32-unknown-unknown --release
+cargo component build -p rest-client --target wasm32-unknown-unknown --release
 
 cp target/wasm32-unknown-unknown/release/*.wasm lib/
 

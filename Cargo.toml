@@ -2,8 +2,11 @@
 members = [
     "calculator",
     "counter",
+    "flights",
     "greeter",
+    "hotels",
     "incrementor",
+    "rest-client",
 ]
 resolver = "3"
 

@@ -29,7 +29,7 @@ impl Incrementor {
 
 impl exports::modulewise::example_components::incrementor::Guest for Incrementor {
     fn increment(key: String) -> Result<i64, String> {
-        Self::increment(&key).map_err(|e| format!("{:?}", e))
+        Self::increment(&key).map_err(|e| format!("{e:?}"))
     }
 }
 

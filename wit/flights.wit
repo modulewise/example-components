@@ -1,0 +1,21 @@
+interface flights {
+    record flight-search {
+        arrival: option<string>,
+        departure: string,
+        destination: string,
+        flex: option<s32>,
+        origin: string,
+    }
+
+    get-flights: func() -> string;
+
+    search-flights: func(data: flight-search) -> string;
+
+    get-flight-by-id: func(id: string) -> string;
+}
+
+world flights-world {
+    include wasi:config/imports@0.2.0-draft;
+    import rest-client;
+    export flights;
+}

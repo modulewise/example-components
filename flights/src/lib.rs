@@ -22,29 +22,31 @@ impl Flights {
 }
 
 impl flights::Guest for Flights {
-    fn get_flights() -> String {
+    fn get_flights() -> Vec<flights::Flight> {
         let url = format!("{}/flights", Self::base_url());
         match rest_client::get(&url, &[]) {
-            Ok(response) => response,
-            Err(e) => format!("{{\"error\": \"{e}\"}}"),
+            Ok(response) => {
+                serde_json::from_str(&response).unwrap_or_else(|_| vec![])
+            },
+            Err(_) => vec![],
         }
     }
 
-    fn get_flight_by_id(id: String) -> String {
+    fn get_flight_by_id(id: String) -> Option<flights::Flight> {
         let url = format!("{}/flights/{id}", Self::base_url());
         match rest_client::get(&url, &[]) {
-            Ok(response) => response,
-            Err(e) => format!("{{\"error\": \"{e}\"}}"),
+            Ok(response) => serde_json::from_str(&response).ok(),
+            Err(_) => None,
         }
     }
 
-    fn search_flights(data: flights::FlightSearch) -> String {
+    fn search_flights(data: flights::FlightSearch) -> Vec<flights::Flight> {
         let url = format!("{}/flights/search", Self::base_url());
         let json = serde_json::to_string(&data).unwrap_or_default();
         let headers = vec![("Content-Type".to_string(), "application/json".to_string())];
         match rest_client::post(&url, &headers, &json) {
-            Ok(response) => response,
-            Err(e) => format!("{{\"error\": \"{e}\"}}"),
+            Ok(response) => serde_json::from_str(&response).unwrap_or_else(|_| vec![]),
+            Err(_) => vec![],
         }
     }
 }

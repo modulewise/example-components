@@ -1,4 +1,14 @@
 interface flights {
+    record flight {
+        id: string,
+        airline: string,
+        number: string,
+        origin: string,
+        destination: string,
+        departure: string,
+        arrival: string,
+    }
+
     record flight-search {
         arrival: option<string>,
         departure: string,
@@ -7,11 +17,11 @@ interface flights {
         origin: string,
     }
 
-    get-flights: func() -> string;
+    get-flights: func() -> list<flight>;
 
-    search-flights: func(data: flight-search) -> string;
+    search-flights: func(data: flight-search) -> list<flight>;
 
-    get-flight-by-id: func(id: string) -> string;
+    get-flight-by-id: func(id: string) -> option<flight>;
 }
 
 world flights-world {

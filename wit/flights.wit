@@ -9,19 +9,17 @@ interface flights {
         arrival: string,
     }
 
-    record flight-search {
-        arrival: option<string>,
-        departure: string,
-        destination: string,
-        flex: option<s32>,
-        origin: string,
-    }
+    get-flight-by-id: func(id: string) -> option<flight>;
 
     get-flights: func() -> list<flight>;
 
-    search-flights: func(data: flight-search) -> list<flight>;
-
-    get-flight-by-id: func(id: string) -> option<flight>;
+    search-flights: func(
+        origin: string,
+        destination: string,
+        departure: string,
+        arrival: option<string>,
+        flex: option<u8>,
+    ) -> list<flight>;
 }
 
 world flights-world {

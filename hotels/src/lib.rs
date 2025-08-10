@@ -10,6 +10,15 @@ wit_bindgen::generate!({
     additional_derives: [serde::Serialize, serde::Deserialize],
 });
 
+#[derive(serde::Serialize, serde::Deserialize)]
+struct HotelSearchRequest {
+    city: String,
+    checkin: String,
+    checkout: String,
+    flex: Option<u8>,
+    minstars: Option<u8>
+}
+
 struct Hotels;
 
 impl Hotels {
@@ -22,6 +31,14 @@ impl Hotels {
 }
 
 impl hotels::Guest for Hotels {
+    fn get_hotel_by_id(id: String) -> Option<hotels::Hotel> {
+        let url = format!("{}/hotels/{id}", Self::base_url());
+        match rest_client::get(&url, &[]) {
+            Ok(response) => serde_json::from_str(&response).ok(),
+            Err(_) => None,
+        }
+    }
+
     fn get_hotels() -> Vec<hotels::Hotel> {
         let url = format!("{}/hotels", Self::base_url());
         match rest_client::get(&url, &[]) {
@@ -32,17 +49,22 @@ impl hotels::Guest for Hotels {
         }
     }
 
-    fn get_hotel_by_id(id: String) -> Option<hotels::Hotel> {
-        let url = format!("{}/hotels/{id}", Self::base_url());
-        match rest_client::get(&url, &[]) {
-            Ok(response) => serde_json::from_str(&response).ok(),
-            Err(_) => None,
-        }
-    }
-
-    fn search_hotels(data: hotels::HotelSearch) -> Vec<hotels::Hotel> {
+    fn search_hotels(
+        city: String,
+        checkin: String,
+        checkout: String,
+        flex: Option<u8>,
+        minstars: Option<u8>
+    ) -> Vec<hotels::Hotel> {
+        let search_request = HotelSearchRequest {
+            city,
+            checkin,
+            checkout,
+            flex,
+            minstars,
+        };
         let url = format!("{}/hotels/search", Self::base_url());
-        let json = serde_json::to_string(&data).unwrap_or_default();
+        let json = serde_json::to_string(&search_request).unwrap_or_default();
         let headers = vec![("Content-Type".to_string(), "application/json".to_string())];
         match rest_client::post(&url, &headers, &json) {
             Ok(response) => serde_json::from_str(&response).unwrap_or_else(|_| vec![]),

@@ -1,3 +1,8 @@
+> [!IMPORTANT]
+> **This repository has been archived.**
+> Example Components are now included within the
+> [modulewise/demos](https://github.com/modulewise/demos) repository.
+
 # Example Components
 
 Example Wasm Components used in Modulewise Demos
